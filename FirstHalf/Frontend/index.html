@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FastAPI Chat Test</title>
+</head>
+<body>
+    <h2>FastAPI Chat Application</h2>
+    <input
+        type="text"
+        id="message"
+        placeholder="Enter your message"
+    >
+    <button onclick="sendMessage()">
+        Send
+    </button>
+    <p id="result"></p>
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById("message").value;
+            try {
+                const response = await fetch(
+                    "http://127.0.0.1:8000/chat/session1",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            message: message
+                        })
+                    }
+                );
+                const data = await response.json();
+                document.getElementById(
+                    "result"
+                ).innerText = data.response || data.detail;
+            }
+            catch (error) {
+                document.getElementById(
+                    "result"
+                ).innerText = "CORS or Network Error: " + error;
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
