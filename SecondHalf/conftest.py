@@ -22,3 +22,4 @@ def client(test_db):
 @pytest.fixture
 def valid_headers():
     return {"x-api-key": TEST_API_KEY}
+
