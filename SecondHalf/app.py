@@ -53,9 +53,7 @@ class Database:
             api_key.encode()
         ).hexdigest()
         with sqlite3.connect(self.db_path) as db:
-            users = db.execute(
-                "SELECT username, key_hash FROM users"
-            ).fetchall()
+            users = db.execute("SELECT username, key_hash FROM users").fetchall()
         for username, stored_hash in users:
             if secrets.compare_digest(key_hash, stored_hash):
                 return username
